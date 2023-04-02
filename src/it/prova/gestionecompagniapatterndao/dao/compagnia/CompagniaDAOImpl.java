@@ -54,7 +54,7 @@ public class CompagniaDAOImpl extends AbstractMySQLDAO implements CompagniaDAO {
 
 		try (Statement ps = connection.createStatement();
 				ResultSet rs = ps
-						.executeQuery("select * from compagnia c left outer join impiegato i on c.id=i.id_compagnia")) {
+						.executeQuery("select * from compagnia c left outer join impiegato i on c.id=i.compagnia_id")) {
 
 			while (rs.next()) {
 				Compagnia compagniaTemp = new Compagnia();
@@ -192,7 +192,7 @@ public class CompagniaDAOImpl extends AbstractMySQLDAO implements CompagniaDAO {
 		List<Impiegato> impiegatiTemp = new ArrayList<>();
 
 		try (PreparedStatement ps = connection.prepareStatement(
-				"select * from compagnia c inner join impiegato i on c.id=i.id_compagnia where dataassunzione > ? ");) {
+				"select * from compagnia c inner join impiegato i on c.id=i.compagnia_id where dataassunzione > ? ");) {
 
 			ps.setDate(1, java.sql.Date.valueOf(dateCreatedInput));
 
@@ -236,7 +236,7 @@ public class CompagniaDAOImpl extends AbstractMySQLDAO implements CompagniaDAO {
 		List<Impiegato> impiegatiTemp = new ArrayList<>();
 
 		try (PreparedStatement ps = connection.prepareStatement(
-				"select * from compagnia c left outer join impiegato i on c.id=i.id_compagnia where ragionesociale like ? ");) {
+				"select * from compagnia c left outer join impiegato i on c.id=i.compagnia_id where ragionesociale like ? ");) {
 
 			ps.setString(1, "%" + ragioneSocialeInput + "%");
 
@@ -280,7 +280,7 @@ public class CompagniaDAOImpl extends AbstractMySQLDAO implements CompagniaDAO {
 		List<Impiegato> impiegatiTemp = new ArrayList<>();
 
 		try (PreparedStatement ps = connection.prepareStatement(
-				"select * from compagnia c inner join impiegato i on c.id=i.id_compagnia where codicefiscale like ? ");) {
+				"select * from compagnia c inner join impiegato i on c.id=i.compagnia_id where codicefiscale like ? ");) {
 
 			ps.setString(1, "%" + parteDiCodiceFiscaleInput + "%");
 
